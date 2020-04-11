@@ -80,7 +80,15 @@ function iniciarJogo(){
     if(direction == "down") snakeY += box;
     if(direction == "up") snakeY -= box;
 
-    snake.pop(); //tira o último elemento do array
+    //condição para a cobrinha comer a comidinha e ela aparecer em outro lugar aleatorio, e assim a cobrinha irá crescendo
+    if(snakeX != food.x || snakeY != food.y){
+        snake.pop(); //tira o último elemento do array
+    }
+    else{
+        food.x = Math.floor(Math.random() * 15 + 1) * box;
+        food.y = Math.floor(Math.random() * 15 + 1) * box;
+    }
+    
 
     let newHead = {
         x: snakeX,
