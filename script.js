@@ -31,7 +31,29 @@ function criarCobrinha(){
 
 }
 
+//keydown significa que estamos escutando as teclas 
+document.addEventListener("keydown", update)
+
+//37 = para direita
+//38 = para baixo 
+//39 = para esquerda
+//40 = para cima
+function update(event){
+    //se a direção não for ao contrario ela muda
+    if(event.keyCode == 37 && direction != "right") direction = "left";
+    if(event.keyCode == 38 && direction != "down") direction = "up";
+    if(event.keyCode == 39 && direction != "left") direction = "right";
+    if(event.keyCode == 40 && direction != "up") direction = "down";
+}
+
 function iniciarJogo(){
+    //fazendo a cobrinha não sumir do espaço definido para o jogo 
+    if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
+    if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
+    if(snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
+    if(snake[0].y < 0 && direction == "up") snake[0].y = 16 * box;
+    
+
     criarBG();
     criarCobrinha();
 
@@ -39,20 +61,20 @@ function iniciarJogo(){
     let snakeY = snake[0].y;
 
     //criando coordenadas de aumentar ou diminuir a cobrinha
-    if(direction == "rigth") snakeX += box;
-    if(direction == "left") snakeX -= box; //criando a ilusão que a cobrinha está indo para a esquerda
-    if(direction == "up") snakeY += box;
-    if(direction == "down") snakeY -=box;
+    if(direction == "right") snakeX += box;
+    if(direction == "left") snakeX -= box;
+    if(direction == "down") snakeY += box;
+    if(direction == "up") snakeY -= box;
 
     snake.pop(); //tira o último elemento do array
 
-    let novaCabeca = {
+    let newHead = {
         x: snakeX,
         y: snakeY
     }
 
     //adiciona um elemento a frente
-    snake.unshift(novaCabeca);
+    snake.unshift(newHead);
 }
 
 //intervalo de 100 milisegundos para ir atualizando o joguinho
